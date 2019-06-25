@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Node : MonoBehaviour, IPointerEnterHandler
 {
+    private bool isDisabled = false;
     private bool isActive = false;
     private bool isSelected = false;
     private int orderInSelection;
@@ -17,12 +18,13 @@ public class Node : MonoBehaviour, IPointerEnterHandler
     
     public static List<NodePosition> selectedNodes = new List<NodePosition>();
 
-    public void Setup(bool[][] matrix, NodePosition thisNodePosition)
+    public void Setup(bool[][] matrix, NodePosition thisNodePosition, bool isDisabled)
     {
         position = thisNodePosition;
         gameController = GameObject.Find("GameController").gameObject;
         connection = GameObject.Find("Connection").gameObject;
         camera = Camera.main;
+        this.isDisabled = isDisabled;
         
         SetPivot(gameObject.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f));
 
@@ -34,6 +36,8 @@ public class Node : MonoBehaviour, IPointerEnterHandler
     }
     void Update()
     {
+        if (isDisabled) return;
+
         if (gameController.GetComponent<Config>().currentState == Config.GameState.Idle && isSelected)
         {
             isSelected = false;
@@ -51,7 +55,7 @@ public class Node : MonoBehaviour, IPointerEnterHandler
     }
     public void OnClick()
     {
-        if (isActive)
+        if (isActive && !isDisabled)
         {
             if (gameController.GetComponent<Config>().currentState == Config.GameState.Idle)
             {
@@ -68,7 +72,7 @@ public class Node : MonoBehaviour, IPointerEnterHandler
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isActive)
+        if (isActive && !isDisabled)
         {
             if (gameController.GetComponent<Config>().currentState == Config.GameState.DrawingLine)
             {
@@ -150,12 +154,12 @@ public class Node : MonoBehaviour, IPointerEnterHandler
             return (position.y == 2 && position.x == lastX);
         }
         // Second Node is in a Slot that is to the right of the current Slot
-        else if (position.charPosition == (lastCharPos + 1) && position.charPosition != 0 && lastX == 1)
+        else if (position.charPosition == (lastCharPos + 1) && position.charPosition != charactersPerLine && lastX == 1)
         {
             return (position.x == 0 && position.y == lastY);
         }
         // Second Node is in a Slot that is to the left of the current Slot
-        else if (position.charPosition == (lastCharPos - 1) && position.charPosition != charactersPerLine && lastX == 0)
+        else if (position.charPosition == (lastCharPos - 1) && position.charPosition != 0 && lastX == 0)
         {
             return (position.x == 1 && position.y == lastY);
         }

@@ -150,9 +150,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  currentAct: 0
+  currentLevel: 0
   paragraph: {fileID: 1946318878}
-  narration: abcdeabcdeabcdeabcde
-  numberOfLines: 4
+  numberOfActiveLines: 4
   charactersPerLine: 5
 --- !u!4 &328027577
 Transform:

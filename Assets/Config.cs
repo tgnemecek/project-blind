@@ -7,22 +7,26 @@ public class Config : MonoBehaviour
     public enum GameState { Loading, Idle, DrawingLine }
     public GameState currentState;
 
+    public int currentAct = 0;
+    public int currentLevel = 0;
+
     public GameObject paragraph;
-
-    public string narration = "";
-    public int numberOfLines = 4;
+    
+    public int numberOfActiveLines = 4;
     public int charactersPerLine = 5;
-
-    // Start is called before the first frame update
+    
     void Awake()
     {
         currentState = GameState.Idle;
         paragraph.GetComponent<TextSetup>().StartSetup();
     }
-
-    // Update is called once per frame
+    
     public void ChangeState(GameState newState)
     {
         currentState = newState;
+    }
+    public void NextLevel()
+    {
+        currentLevel++;
     }
 }

@@ -5,18 +5,43 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
+    private bool isDisabled = true;
     public string character;
-    private int characterIndex;
+    private int absoluteIndex;
+    private int relativeIndex;
+    private int rowIndex;
+
+    Config config;
+    int act = 0;
+    int level = 0;
+    int charactersPerLine = 0;
+    Narration narration;
+
     private bool[][] matrix;
     public Transform node;
 
     public string type;
     public bool isEnergized;
 
-    public void Setup(string character, int index)
+    public void Setup(int rowIndex, int relativeIndex)
     {
+        config = GameObject.Find("GameController").GetComponent<Config>();
+        act = config.currentAct;
+        level = config.currentLevel;
+        charactersPerLine = config.charactersPerLine;
+
+        this.relativeIndex = relativeIndex;
+        this.rowIndex = rowIndex;
+        absoluteIndex = relativeIndex + (charactersPerLine * rowIndex);
+        narration = new Narration(act, level);
+        character = narration.GetCharacter(absoluteIndex);
         matrix = new BrailleDictionary().GetMatrix(character);
-        characterIndex = index;
+        print(absoluteIndex + "_" + narration.initialIndex + "_" + narration.lastIndex);
+        isDisabled = !(absoluteIndex >= narration.initialIndex && absoluteIndex <= narration.lastIndex);
+        if (isDisabled)
+        {
+            gameObject.transform.Find("Overlay").GetComponent<Image>().color = new Color(100, 100, 100, 255);
+        }
         CreateNodes();
     }
 
@@ -28,8 +53,8 @@ public class Slot : MonoBehaviour
             {
                 GameObject currentNode = Instantiate(node, gameObject.transform).gameObject;
                 SetPositions(currentNode, x, y);
-                NodePosition thisNodePosition = new NodePosition(x, y, characterIndex);
-                currentNode.GetComponent<Node>().Setup(matrix, thisNodePosition);
+                NodePosition thisNodePosition = new NodePosition(x, y, absoluteIndex);
+                currentNode.GetComponent<Node>().Setup(matrix, thisNodePosition, isDisabled);
             }
         }
     }

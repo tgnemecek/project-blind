@@ -16,9 +16,9 @@ public class TextSetup : MonoBehaviour
 
         for (int i = 0; i < numberOfTotalLines; i++)
         {
-            float yPosition = 0f + (200f * -i);
+            float zPosition = -18f * i;
             GameObject currentRow = Instantiate(row, gameObject.transform).gameObject;
-            currentRow.transform.localPosition = new Vector3(0f, yPosition, 0f);
+            currentRow.transform.localPosition = new Vector3(0f, 0f, zPosition);
             currentRow.GetComponent<Row>().Setup(i);
         }
     }

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ConnectionMat
+  m_Shader: {fileID: -6465566751694194690, guid: a47725e84e84c084bab54f76a3d389d2,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_8C64C173:
+        m_Texture: {fileID: 2800000, guid: 3de6e56d764b2554a9503f041cb53f0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D366476B:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_4E2D7177: 0.1
+    - Vector1_CF3B66FE: 25
+    - Vector1_D31AB46D: 2
+    m_Colors:
+    - Color_232376FB: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
+    - Vector2_6002B17A: {r: -0.1, g: 0, b: 0, a: 0}
+    - Vector2_E6595474: {r: -0.7, g: 0, b: 0, a: 0}
